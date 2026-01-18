@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request a Quote | Central Service Point</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+<div class="logo">Central Service Point</div>
+<nav>
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="provinces.html">Provinces</a>
+<a href="case-studies.html">Case Studies</a>
+<a href="blog.html">Blog</a>
+<a href="request-quote.html" class="cta">Request Quote</a>
+</nav>
+</header>
+
+<section class="hero">
+<h1>Request a Quote</h1>
+<p>Describe your construction project and we will match you with up to 4 verified contractors in your province.</p>
+</section>
+
+<section>
+<form style="background:#fff; padding:40px; border-radius:12px; max-width:700px; margin:auto;" enctype="multipart/form-data">
+<label>Full Name</label>
+<input type="text" name="name" required>
+
+<label>Email</label>
+<input type="email" name="email" required>
+
+<label>Phone / WhatsApp</label>
+<input type="text" name="phone" required>
+
+<label>Service Needed</label>
+<select name="service" required>
+<option>Roofing</option>
+<option>Waterproofing</option>
+<option>Painting</option>
+<option>Plumbing</option>
+<option>Electrical</option>
+<option>Renovations</option>
+</select>
+
+<label>Province</label>
+<select name="province" required>
+<option>Gauteng</option>
+<option>Western Cape</option>
+<option>KwaZulu-Natal</option>
+<option>Eastern Cape</option>
+<option>Free State</option>
+<option>Limpopo</option>
+<option>Mpumalanga</option>
+<option>North West</option>
+<option>Northern Cape</option>
+</select>
+
+<label>Project Details</label>
+<textarea name="details" rows="5" required></textarea>
+
+<label>Upload Images (required)</label>
+<input type="file" name="images" id="job-images" multiple required>
+<div id="image-preview"></div>
+
+<button type="submit">Submit Request</button>
+</form>
+</section>
+
+<footer>
+<div class="footer-col">
+<h4>Central Service Point</h4>
+<p>Connecting homeowners with trusted contractors across South Africa.</p>
+</div>
+<div class="footer-col">
+<h4>Quick Links</h4>
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="provinces.html">Provinces</a>
+<a href="case-studies.html">Case Studies</a>
+<a href="blog.html">Blog</a>
+<a href="request-quote.html">Request Quote</a>
+</div>
+<div class="footer-col">
+<h4>Contact</h4>
+<p>info@centralservicepoint.store</p>
+<p>+27 71 785 3990</p>
+</div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+  </html>
