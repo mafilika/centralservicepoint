@@ -67,6 +67,40 @@
     <button onclick="window.location.href='request-quote.html'">Request Quotes</button>
 </section>
 
+    <section class="faq-section">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <button class="faq-question">What services does Central Service Point offer?</button>
+    <div class="faq-answer">We provide professional repair, maintenance, and technical support services for homes and businesses.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Do you offer on-site support?</button>
+    <div class="faq-answer">Yes. Our technicians can visit your home or business for fast and convenient service.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">How can I request a quote?</button>
+    <div class="faq-answer">You can contact us through our website, phone, or WhatsApp for a quick quote.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Which areas do you serve?</button>
+    <div class="faq-answer">We serve local customers in our surrounding region with reliable same-day service when available.</div>
+  </div>
+
+    </section>
+
+    <script>
+document.querySelectorAll(".faq-question").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const answer = btn.nextElementSibling;
+    answer.style.display =
+      answer.style.display === "block" ? "none" : "block";
+  });
+});
+    </script>
 <footer>
     <div class="footer-col">
         <h4>Central Service Point</h4>
