@@ -32,6 +32,18 @@
   </url>
 
   <url>
+    <loc>https://centralservicepoint.store/case-studies.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+<url>
+    <loc>https://centralservicepoint.store/blog-post.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.80</priority>
+  </url>
+  
+  <url>
     <loc>https://centralservicepoint.store/request-quote</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
