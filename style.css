@@ -82,6 +82,35 @@ form input, form select, form textarea{
 }
 form button{background:var(--primary); color:white; padding:14px 24px; border:none; border-radius:6px; cursor:pointer; margin-top:12px;}
 
+.faq-section {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.faq-item {
+  margin-bottom: 15px;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+.faq-answer {
+  display: none;
+  padding: 12px;
+  background: #f4f4f4;
+  border-radius: 6px;
+  margin-top: 6px;
+             }
 /* Footer */
 footer{
     background-color:#222;
