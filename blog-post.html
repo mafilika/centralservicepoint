@@ -3,11 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog Post | Central Service Point</title>
+
+<title id="meta-title">Blog Post | Central Service Point</title>
+<meta id="meta-description" name="description" content="">
+
 <link rel="stylesheet" href="style.css">
+
+<!-- Contentful -->
+<script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+<script src="https://unpkg.com/@contentful/rich-text-html-renderer/dist/rich-text-html-renderer.js"></script>
 </head>
+
 <body>
 
+<!-- ================= HEADER (unchanged) ================= -->
 <header>
 <div class="logo">Central Service Point</div>
 <nav>
@@ -20,29 +29,27 @@
 </nav>
 </header>
 
+
+<!-- ================= HERO ================= -->
 <section class="hero">
-<h1>Preventing Basement Leaks: Waterproofing Tips</h1>
-<p>Published: 18 January 2026</p>
+<h1 id="title">Loading...</h1>
+<p id="date"></p>
 </section>
 
+
+<!-- ================= BLOG CONTENT ================= -->
 <section>
 <article style="max-width:800px; margin:auto; background:#fff; padding:40px; border-radius:12px;">
-<p>Basement leaks are one of the most common and damaging problems for homeowners. In this guide, we’ll explain the best waterproofing techniques, common mistakes, and how to select a verified contractor in your province.</p>
 
-<h2>Why Waterproofing Matters</h2>
-<p>Water can damage your home’s structure, flooring, and insulation. Early waterproofing prevents expensive repairs.</p>
+<img id="image" style="width:100%; border-radius:10px; margin-bottom:20px; display:none;" />
 
-<h2>Step-by-Step Solutions</h2>
-<p>1. Inspect existing leaks<br>
-2. Apply sealant to cracks<br>
-3. Install proper drainage<br>
-4. Use verified contractors for professional application</p>
+<div id="content"></div>
 
-<h2>Next Steps</h2>
-<p>Submit your project through our <a href="request-quote.html">Request Quote</a> form and get quotes from trusted contractors in your province.</p>
 </article>
 </section>
 
+
+<!-- ================= FOOTER (unchanged) ================= -->
 <footer>
 <div class="footer-col">
 <h4>Central Service Point</h4>
@@ -64,6 +71,70 @@
 </div>
 </footer>
 
-<script src="main.js"></script>
+
+
+<!-- ================= CONTENTFUL SCRIPT ================= -->
+<script>
+const client = contentful.createClient({
+  space: "81oc7riu4paq",
+  accessToken: "4NyIoWur4cubCieOMOi2CslUkuGaenkpTXTn38-Uo-o"
+});
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+client.getEntry(id).then(post => {
+
+  const title = post.fields.title;
+  const date = post.fields.date;
+  const excerpt = post.fields.excerpt;
+  const image = post.fields.featuredImage?.fields.file.url;
+
+  document.getElementById("title").innerText = title;
+  document.getElementById("date").innerText =
+    "Published: " + new Date(date).toDateString();
+
+  document.getElementById("meta-title").innerText = title + " | Central Service Point";
+  document.getElementById("meta-description").content = excerpt;
+
+  if(image){
+    const imgEl = document.getElementById("image");
+    imgEl.src = "https:" + image;
+    imgEl.style.display = "block";
+  }
+
+  document.getElementById("content").innerHTML =
+    documentToHtmlString(post.fields.content);
+
+
+  /* ================= ARTICLE RICH RESULTS ================= */
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": title,
+    "image": ["https:" + image],
+    "datePublished": date,
+    "dateModified": date,
+    "author": {
+      "@type": "Organization",
+      "name": "Central Service Point"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Central Service Point"
+    },
+    "description": excerpt,
+    "mainEntityOfPage": window.location.href
+  };
+
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.text = JSON.stringify(schema);
+  document.body.appendChild(script);
+
+});
+</script>
+
 </body>
-</html>
+  </html>
