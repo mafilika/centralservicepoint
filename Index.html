@@ -67,41 +67,88 @@
     <button onclick="window.location.href='request-quote.html'">Request Quotes</button>
 </section>
 
-    <section class="faq-section">
-  <h2>Frequently Asked Questions</h2>
+    <!-- ================= FAQ SECTION ================= -->
+<section class="faq-section">
+  <div class="container">
 
-  <div class="faq-item">
-    <button class="faq-question">What services does Central Service Point offer?</button>
-    <div class="faq-answer">We provide professional repair, maintenance, and technical support services for homes and businesses.</div>
+    <h2 class="faq-title">Safety, Scam Protection & Trust</h2>
+    <p class="faq-subtitle">
+      Your safety comes first. Every contractor is verified and every booking is protected.
+    </p>
+
+    <div class="faq">
+
+      <div class="faq-item">
+        <button class="faq-question">How does Central Service Point protect me from scammers?</button>
+        <div class="faq-answer">
+          We verify contractors, monitor reports, and remove suspicious users. Our Scam Check system helps you avoid risky contacts and connect only with trusted professionals.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">Are your contractors qualified and verified?</button>
+        <div class="faq-answer">
+          Yes. Every contractor completes identity verification, phone validation, and experience screening before joining our marketplace.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">What is the Scam Check feature?</button>
+        <div class="faq-answer">
+          Scam Check allows customers to search numbers, view reports, and flag suspicious activity to protect the entire community from fraud.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">How do you protect my personal information?</button>
+        <div class="faq-answer">
+          We never sell your data. All information is encrypted and shared only when you choose to contact a contractor.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">Can contractors see my number without permission?</button>
+        <div class="faq-answer">
+          No. Your details remain private until you decide to communicate directly with a contractor.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">How do you reduce fraud risk on the platform?</button>
+        <div class="faq-answer">
+          We use verification, reviews, monitoring systems, and fast removal of suspicious accounts to keep Central Service Point safe for everyone.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">What should I do if I suspect a scam?</button>
+        <div class="faq-answer">
+          Do not send payment. Do not share sensitive details. Report the contractor or number immediately through our platform for investigation.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">Why book through Central Service Point instead of privately?</button>
+        <div class="faq-answer">
+          You get verified professionals, reviews, accountability, and scam protection — giving you a safer and more reliable experience.
+        </div>
+      </div>
+
+    </div>
   </div>
+</section>
 
-  <div class="faq-item">
-    <button class="faq-question">Do you offer on-site support?</button>
-    <div class="faq-answer">Yes. Our technicians can visit your home or business for fast and convenient service.</div>
-  </div>
-
-  <div class="faq-item">
-    <button class="faq-question">How can I request a quote?</button>
-    <div class="faq-answer">You can contact us through our website, phone, or WhatsApp for a quick quote.</div>
-  </div>
-
-  <div class="faq-item">
-    <button class="faq-question">Which areas do you serve?</button>
-    <div class="faq-answer">We serve local customers in our surrounding region with reliable same-day service when available.</div>
-  </div>
-
-    </section>
-
-    <script>
+<!-- ================= SCRIPT ================= -->
+<script>
 document.querySelectorAll(".faq-question").forEach(btn => {
   btn.addEventListener("click", () => {
-    const answer = btn.nextElementSibling;
-    answer.style.display =
-      answer.style.display === "block" ? "none" : "block";
+    btn.parentElement.classList.toggle("active");
   });
 });
-    </script>
+</script>
 
+
+<!-- ================= FAQ SCHEMA (SEO) ================= -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -109,39 +156,40 @@ document.querySelectorAll(".faq-question").forEach(btn => {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What services does Central Service Point offer?",
+      "name": "How does Central Service Point protect me from scammers?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We provide professional repair, maintenance, and technical support services for homes and businesses."
+        "text": "We verify contractors, monitor reports and remove suspicious users to ensure a safe marketplace."
       }
     },
     {
       "@type": "Question",
-      "name": "Do you offer on-site support?",
+      "name": "Are contractors verified?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Our technicians can visit your home or business for fast and convenient service."
+        "text": "Yes. All contractors complete identity and phone verification before joining."
       }
     },
     {
       "@type": "Question",
-      "name": "How can I request a quote?",
+      "name": "How do you protect my personal information?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You can contact us through our website, phone, or WhatsApp for a quick quote."
+        "text": "We use secure encrypted systems and never sell customer data."
       }
     },
     {
       "@type": "Question",
-      "name": "Which areas do you serve?",
+      "name": "What is the Scam Check feature?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We serve local customers in our surrounding region with reliable same-day service when available."
+        "text": "It allows users to check number reputations and report suspicious activity."
       }
     }
   ]
 }
-    </script>
+</script>
+<!-- ================= END FAQ ================= -->
 
     <script type="application/ld+json">
 {
