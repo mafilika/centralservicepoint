@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blog | Central Service Point</title>
 <link rel="stylesheet" href="style.css">
+  <!-- Contentful SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
 </head>
 <body>
 
@@ -25,26 +27,87 @@
 <p>Helpful guides, tips, and industry insights for homeowners and property owners.</p>
 </section>
 
-<section>
-<h2>Latest Articles</h2>
-<div class="categories">
-<div class="category-card">
-<h3>How to Choose a Reliable Roofing Contractor</h3>
-<p>Tips for homeowners to select a verified and trustworthy roofing professional.</p>
-<a href="blog-post.html">Read More</a>
-</div>
-<div class="category-card">
-<h3>Preventing Basement Leaks: Waterproofing Tips</h3>
-<p>Learn the most effective waterproofing techniques to protect your home.</p>
-<a href="blog-post.html">Read More</a>
-</div>
-<div class="category-card">
-<h3>Renovation Cost Guide for Homeowners</h3>
-<p>Understand pricing and budgeting for your next renovation project.</p>
-<a href="blog-post.html">Read More</a>
-</div>
-</div>
-</section>
+
+  <div class="container">
+
+    <h1>Safety & Scam Prevention Blog</h1>
+    <p class="subtitle">
+      Tips, guides and trusted advice to help you hire safely and avoid scams.
+    </p>
+
+    <div id="posts" class="grid"></div>
+    <p id="loading" class="loading">Loading posts...</p>
+
+  </div>
+
+
+  <!-- ================= CONTENTFUL LOGIC ================= -->
+  <script>
+    const client = contentful.createClient({
+      space: "81oc7riu4paq",
+      accessToken: "4NyIoWur4cubCieOMOi2CslUkuGaenkpTXTn38-Uo-o"
+    });
+
+    const container = document.getElementById("posts");
+    const loading = document.getElementById("loading");
+
+    client.getEntries({
+      content_type: "blogPost",
+      order: "-fields.date"
+    })
+    .then(res => {
+
+      loading.style.display = "none";
+
+      let schemaItems = [];
+
+      res.items.forEach((post, index) => {
+
+        const title = post.fields.title;
+        const excerpt = post.fields.excerpt;
+        const image = post.fields.featuredImage?.fields.file.url;
+        const id = post.sys.id;
+
+        container.innerHTML += `
+          <div class="card">
+            <img src="https:${image}" alt="${title}">
+            <div class="card-content">
+              <h2>${title}</h2>
+              <p>${excerpt}</p>
+              <a href="post.html?id=${id}" class="btn">Read More →</a>
+            </div>
+          </div>
+        `;
+
+        /* Build schema list */
+        schemaItems.push({
+          "@type": "ListItem",
+          "position": index + 1,
+          "url": "https://centralservicepoint.com/post.html?id=" + id
+        });
+
+      });
+
+      /* ================= BLOG SCHEMA ================= */
+      const schema = {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Central Service Point Blog",
+        "description": "Safety tips, scam prevention and trusted contractor advice.",
+        "blogPost": schemaItems
+      };
+
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.text = JSON.stringify(schema);
+      document.body.appendChild(script);
+
+    })
+    .catch(err => {
+      loading.innerText = "Failed to load posts.";
+      console.error(err);
+    });
+  </script>
 
 <footer>
 <div class="footer-col">
