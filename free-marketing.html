@@ -40,5 +40,29 @@
       <p class="success-msg" style="display:none;">Thanks! Your submission is received.</p>
 
     </form>
+      <script>
+const form = document.getElementById('contractorForm');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const data = {
+    Name: form.fullname.value,
+    Company: form.company.value,
+    Phone: form.phone.value,
+    Email: form.email.value,
+    Service: form.service.value,
+    Socials: form.socials.value,
+    Challenge: form.challenge.value
+  };
+
+  // Show success
+  form.reset();
+  document.querySelector('.success-msg').style.display = 'block';
+
+  // WhatsApp notification to you instantly
+  const waMsg = `New Contractor Lead:\nName: ${data.Name}\nCompany: ${data.Company}\nPhone: ${data.Phone}\nEmail: ${data.Email}\nService: ${data.Service}\nSocials: ${data.Socials}\nChallenge: ${data.Challenge}`;
+  window.open(`https://wa.me/27717853990 text=${encodeURIComponent(waMsg)}`);
+});
+      </script>
   </div>
 </section>
