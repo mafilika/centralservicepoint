@@ -80,6 +80,7 @@ console.log("🔥 Firebase connected");
 
 document.getElementById("scamForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+  console.log("Submitting report...");
 
   try {
     await addDoc(collection(db, "scamReports"), {
@@ -90,15 +91,14 @@ document.getElementById("scamForm").addEventListener("submit", async (e) => {
       description: description.value,
       createdAt: serverTimestamp()
     });
-
+    console.log("Report submitted!");
     alert("✅ Report submitted!");
     e.target.reset();
 
   } catch (err) {
-    console.error(err);
-    alert("Error saving report");
+    console.error("Firestore Error:", err);
+    alert("Error submitting the report. See console for details.");
   }
 });
-
 </script>
 </body>
