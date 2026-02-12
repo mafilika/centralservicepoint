@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Report a Scam | Central Service Point</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body{
+      font-family: Arial;
+      background:#f5f7f6;
+      padding:30px;
+    }
+
+    .card{
+      max-width:500px;
+      margin:auto;
+      background:white;
+      padding:25px;
+      border-radius:10px;
+    }
+
+    h2{
+      color:#0aa06e;
+    }
+
+    input, textarea{
+      width:100%;
+      padding:10px;
+      margin:8px 0;
+    }
+
+    button{
+      background:#0aa06e;
+      color:white;
+      padding:12px;
+      width:100%;
+      border:none;
+      font-weight:bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Report a Scam Contractor</h2>
+
+<form id="scamForm">
+  <input id="name" placeholder="Your Name" required>
+  <input id="email" placeholder="Email" required>
+  <input id="contractor" placeholder="Contractor Name" required>
+  <input id="phone" placeholder="Phone Used">
+  <textarea id="description" placeholder="What happened?" required></textarea>
+
+  <button>Submit Report</button>
+</form>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAFojWvBMBcNjatWt7dkuScaKdQ8j8dTlk",
+  authDomain: "central-service-point.firebaseapp.com",
+  projectId: "central-service-point",
+  appId: "1:507779147190:web:8751a9a70092cfcf474d17"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+document.getElementById("scamForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+
+  await addDoc(collection(db, "scamReports"), {
+    name: name.value,
+    email: email.value,
+    contractor: contractor.value,
+    phone: phone.value,
+    description: description.value,
+    createdAt: serverTimestamp()
+  });
+
+  alert("✅ Report submitted!");
+  e.target.reset();
+});
+
+</script>
+
+</body>
+  </html>
