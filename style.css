@@ -148,9 +148,67 @@ form button{background:var(--primary); color:white; padding:14px 24px; border:no
   max-height: 200px;
   padding: 0 20px 18px;
 }
-</style>
+.contractor-diagnosis {
+  background: #0f172a;
+  padding: 60px 20px;
+  color: #fff;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
 
+.contractor-diagnosis h2 {
+  font-size: 34px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
 
+.contractor-diagnosis .sub {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+.diagnosis-form {
+  max-width: 700px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+input, select, textarea {
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+}
+
+textarea { resize: none; }
+
+button {
+  background: #2563eb;
+  color: #fff;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+button:hover { background: #1d4ed8; }
+
+.success-msg { color: #4ade80; font-weight: bold; }
+
+@media(max-width:768px){ .grid{ grid-template-columns: 1fr; } }
     
 /* Footer */
 footer{
@@ -161,5 +219,7 @@ footer{
     justify-content:space-between;
     flex-wrap:wrap;
 }
+
+
 footer a{color:#ccc; text-decoration:none; margin-right:20px;}
 footer .footer-col{margin-bottom:20px;}
