@@ -1,69 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Report a Scam | Central Service Point</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report a Scam | Central Service Point</title>
 
-  <style>
-    body{
-      font-family: Arial;
-      background:#f5f7f6;
-      padding:30px;
-    }
-
-    .card{
-      max-width:500px;
-      margin:auto;
-      background:white;
-      padding:25px;
-      border-radius:10px;
-    }
-
-    h2{
-      color:#0aa06e;
-    }
-
-    input, textarea{
-      width:100%;
-      padding:10px;
-      margin:8px 0;
-    }
-
-    button{
-      background:#0aa06e;
-      color:white;
-      padding:12px;
-      width:100%;
-      border:none;
-      font-weight:bold;
-    }
-  </style>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f5f7f6;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    background: #0aa06e;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  }
+  h2 {
+    color: #0aa06e;
+    text-align: center;
+  }
+  input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+  textarea { min-height: 120px; }
+  button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #0aa06e;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button:hover { opacity: 0.9; }
+  .success { color: green; display: none; margin-top: 15px; text-align: center; font-weight: bold; }
+</style>
 </head>
 
 <body>
 
-<div class="card">
+<header>Central Service Point</header>
 
-<h2>Report a Scam Contractor</h2>
+<div class="container">
+  <h2>Report a Scam Contractor</h2>
+  <p style="text-align:center;">Help protect others by reporting fraudulent or suspicious contractors.</p>
 
-<form id="scamForm">
-  <input id="name" placeholder="Your Name" required>
-  <input id="email" placeholder="Email" required>
-  <input id="contractor" placeholder="Contractor Name" required>
-  <input id="phone" placeholder="Phone Used">
-  <textarea id="description" placeholder="What happened?" required></textarea>
+  <form id="scamForm">
+    <input id="name" placeholder="Your Name" required>
+    <input id="email" placeholder="Email" type="email" required>
+    <input id="contractor" placeholder="Contractor / Business Name" required>
+    <input id="phone" placeholder="Phone Used">
+    <select id="service">
+      <option value="">Select Service</option>
+      <option>Plumbing</option>
+      <option>Electrical</option>
+      <option>Construction</option>
+      <option>Painting</option>
+      <option>Other</option>
+    </select>
+    <textarea id="description" placeholder="Describe what happened" required></textarea>
 
-  <button>Submit Report</button>
-</form>
-
+    <button type="submit">Submit Report</button>
+    <p class="success" id="successMsg">✅ Report submitted successfully!</p>
+  </form>
 </div>
 
 <script type="module">
-
+// Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp }
-  from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
+// 🔥 Your Firebase Config (replace with YOUR keys)
 const firebaseConfig = {
   apiKey: "AIzaSyAFojWvBMBcNjatWt7dkuScaKdQ8j8dTlk",
   authDomain: "central-service-point.firebaseapp.com",
@@ -73,14 +100,16 @@ const firebaseConfig = {
   appId: "1:507779147190:web:8751a9a70092cfcf474d17"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-console.log("🔥 Firebase connected");
+// Form submit handler
+const form = document.getElementById("scamForm");
+const successMsg = document.getElementById("successMsg");
 
-document.getElementById("scamForm").addEventListener("submit", async (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  console.log("Submitting report...");
 
   try {
     await addDoc(collection(db, "scamReports"), {
@@ -88,17 +117,21 @@ document.getElementById("scamForm").addEventListener("submit", async (e) => {
       email: email.value,
       contractor: contractor.value,
       phone: phone.value,
+      service: service.value,
       description: description.value,
       createdAt: serverTimestamp()
     });
-    console.log("Report submitted!");
-    alert("✅ Report submitted!");
-    e.target.reset();
+
+    // Show success
+    successMsg.style.display = "block";
+    form.reset();
 
   } catch (err) {
-    console.error("Firestore Error:", err);
-    alert("Error submitting the report. See console for details.");
+    console.error("Error submitting report:", err);
+    alert("❌ Error submitting the report. Check console for details.");
   }
 });
 </script>
+
 </body>
+</html>
