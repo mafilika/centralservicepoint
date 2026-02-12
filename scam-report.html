@@ -100,6 +100,32 @@ const firebaseConfig = {
   appId: "1:507779147190:web:8751a9a70092cfcf474d17"
 };
 
+  const messageEl = document.createElement("p");
+document.body.appendChild(messageEl);
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  messageEl.style.color = "black";
+  messageEl.textContent = "Submitting...";
+
+  try {
+    await addDoc(collection(db, "scamReports"), {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      contractor: document.getElementById("contractor").value,
+      phone: document.getElementById("phone").value,
+      description: document.getElementById("description").value,
+      createdAt: serverTimestamp()
+    });
+    messageEl.style.color = "green";
+    messageEl.textContent = "✅ Report submitted!";
+    form.reset();
+  } catch (err) {
+    messageEl.style.color = "red";
+    messageEl.textContent = "❌ Firebase Error: " + err.message;
+  }
+});
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
