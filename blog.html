@@ -1,113 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog | Central Service Point</title>
-<link rel="stylesheet" href="style.css">
-  <!-- Contentful SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+
+
+  <!-- Blog Schema -->
+  <script type="application/ld+json" id="blog-schema">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Calming Currents Beauty Spa Blog",
+    "blogPost": []
+  }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
 <header>
-<div class="logo">Central Service Point</div>
-<nav>
-<a href="index.html">Home</a>
-<a href="services.html">Services</a>
-<a href="provinces.html">Provinces</a>
-<a href="case-studies.html">Case Studies</a>
-<a href="blog.html" class="cta">Blog</a>
-<a href="request-quote.html" class="cta">Request Quote</a>
-</nav>
-</header>
+  
 
-<section class="hero">
-<h1>Central Service Point Blog</h1>
-<p>Helpful guides, tips, and industry insights for homeowners and property owners.</p>
+<section id="blog-section">
+  <h2>Wellness & Massage Blog</h2>
+  <div id="blog-container">Loading posts...</div>
 </section>
 
+<script>
+/* =========================
+   CONTENTFUL SETTINGS
+========================= */
+const SPACE_ID = "";
+const ACCESS_TOKEN = "";
+const CONTENT_TYPE = "blogPost";
 
-  <div class="container">
+/* =========================
+   FETCH BLOG POSTS
+========================= */
+async function fetchBlogPosts() {
+  try {
+    const res = await fetch(
+      `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/master/entries?access_token=${ACCESS_TOKEN}&content_type=${CONTENT_TYPE}&order=-fields.publishedDate`
+    );
 
-    <h1>Safety & Scam Prevention Blog</h1>
-    <p class="subtitle">
-      Tips, guides and trusted advice to help you hire safely and avoid scams.
-    </p>
+    if (!res.ok) {
+      console.error("Contentful error:", res.status);
+      return [];
+    }
 
-    <div id="posts" class="grid"></div>
-    <p id="loading" class="loading">Loading posts...</p>
+    const data = await res.json();
+    if (!data.items || !data.items.length) return [];
 
-  </div>
+    return data.items.map(item => {
+      const content = item.fields.content;
+      let text = "";
 
+      if (content && content.content) {
+        text = content.content
+          .flatMap(b => b.content || [])
+          .filter(n => n.nodeType === "text")
+          .map(n => n.value)
+          .join(" ");
+      }
 
-  <!-- ================= CONTENTFUL LOGIC ================= -->
-  <script>
-    const client = contentful.createClient({
-      space: "81oc7riu4paq",
-      accessToken: "4NyIoWur4cubCieOMOi2CslUkuGaenkpTXTn38-Uo-o"
-    });
-
-    const container = document.getElementById("posts");
-    const loading = document.getElementById("loading");
-
-    client.getEntries({
-      content_type: "blogPost",
-      order: "-fields.date"
-    })
-    .then(res => {
-
-      loading.style.display = "none";
-
-      let schemaItems = [];
-
-      res.items.forEach((post, index) => {
-
-        const title = post.fields.title;
-        const excerpt = post.fields.excerpt;
-        const image = post.fields.featuredImage?.fields.file.url;
-        const id = post.sys.id;
-
-        container.innerHTML += `
-          <div class="card">
-            <img src="https:${image}" alt="${title}">
-            <div class="card-content">
-              <h2>${title}</h2>
-              <p>${excerpt}</p>
-            <a href="blog-post.html?id=${post.sys.id}">Read More →</a>
-            </div>
-          </div>
-        `;
-
-        /* Build schema list */
-        schemaItems.push({
-          "@type": "ListItem",
-          "position": index + 1,
-          "url": "https://centralservicepoint.com/post.html?id=" + id
-        });
-
-      });
-
-      /* ================= BLOG SCHEMA ================= */
-      const schema = {
-        "@context": "https://schema.org",
-        "@type": "Blog",
-        "name": "Central Service Point Blog",
-        "description": "Safety tips, scam prevention and trusted contractor advice.",
-        "blogPost": schemaItems
+      return {
+        title: item.fields.title || "Untitled",
+        date: item.fields.publishedDate || new Date().toISOString(),
+        slug: item.fields.slug || "",
+        excerpt: text
+          ? text.substring(0, 200) + "..."
+          : "Read full article"
       };
-
-      const script = document.createElement("script");
-      script.type = "application/ld+json";
-      script.text = JSON.stringify(schema);
-      document.body.appendChild(script);
-
-    })
-    .catch(err => {
-      loading.innerText = "Failed to load posts.";
-      console.error(err);
     });
-  </script>
+
+  } catch (err) {
+    console.error("Fetch failed:", err);
+    return [];
+  }
+}
+
+/* =========================
+   RENDER POSTS
+========================= */
+async function renderBlogPosts() {
+  const container = document.getElementById("blog-container");
+  container.innerHTML = "Fetching posts...";
+
+  const posts = await fetchBlogPosts();
+
+  if (!posts.length) {
+    container.innerHTML = "<p>No blog posts available.</p>";
+    return;
+  }
+
+  container.innerHTML = "";
+
+  const schemaPosts = [];
+
+  posts.forEach(post => {
+    const el = document.createElement("article");
+
+    el.innerHTML = `
+      <h3>${post.title}</h3>
+      <span class="date">${new Date(post.date).toLocaleDateString()}</span>
+      <p>${post.excerpt}</p>
+      <a href="post.html?slug=${post.slug}" class="read-more">Read More →</a>
+    `;
+
+    container.appendChild(el);
+
+    schemaPosts.push({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.excerpt,
+      "datePublished": post.date,
+      "author": {
+        "@type": "Organization",
+        "name": "Calming Currents Beauty Spa"
+      }
+    });
+  });
+
+  document.getElementById("blog-schema").textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Central Service Point",
+    "blogPost": schemaPosts
+  });
+}
+
+/* =========================
+   START AFTER DOM READY
+========================= */
+document.addEventListener("DOMContentLoaded", renderBlogPosts);
+</script>
+
+</body>
+  </html>
 
 <footer>
 <div class="footer-col">
