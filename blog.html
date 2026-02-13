@@ -1,27 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Posts | Central Service Point</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<header>
+    <div class="logo">Central Service Point</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="provinces.html">Provinces</a>
+        <a href="scam-report.html">Report A Fraudulent Contractor</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="blog.html">Blog</a>
+        <a href="request-quote.html" class="cta">Request Quote</a>
+    </nav>
+</header>
 
   <!-- Blog Schema -->
   <script type="application/ld+json" id="blog-schema">
   {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "Calming Currents Beauty Spa Blog",
+    "name": "Central Service Point",
     "blogPost": []
   }
   </script>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-  
-
 <section id="blog-section">
-  <h2>Wellness & Massage Blog</h2>
+  <h2>Research And Analysis Blog</h2>
   <div id="blog-container">Loading posts...</div>
 </section>
 
@@ -115,7 +130,7 @@ async function renderBlogPosts() {
       "datePublished": post.date,
       "author": {
         "@type": "Organization",
-        "name": "Calming Currents Beauty Spa"
+        "name": "Central Service Point"
       }
     });
   });
