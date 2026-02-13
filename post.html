@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Dynamic SEO -->
+  <title id="meta-title">Blog | Central Service Point</title>
+  <meta id="meta-description" name="description" content="Connecting Homeowners With Reputable and Verified Contractors."/>
+
+  <!-- Schema container -->
+  <script type="application/ld+json" id="blog-schema">
+  {}
+  </script>
+</head>
+
+<body>
+
+  <a href="/blog.html" class="back">← Back to Blog</a>
+
+  <article>
+    <h1 id="post-title">Loading...</h1>
+    <span class="date" id="post-date"></span>
+    <div id="post-content" class="content"></div>
+  </article>
+
+
+<script>
+/* ===============================
+   CONTENTFUL SETTINGS
+================================ */
+const SPACE_ID = "";
+const ACCESS_TOKEN = "";
+
+
+/* ===============================
+   GET SLUG FROM URL
+================================ */
+const params = new URLSearchParams(window.location.search);
+const slug = params.get("slug");
+
+if(!slug){
+  document.getElementById("post-title").innerText = "Post not found";
+  throw new Error("No slug provided");
+}
+
+
+/* ===============================
+   FETCH SINGLE POST
+================================ */
+async function fetchPost(){
+
+  const res = await fetch(
+    `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/master/entries?access_token=${ACCESS_TOKEN}&content_type=blogPost&fields.slug=${slug}`
+  );
+
+  const data = await res.json();
+
+  if(!data.items.length){
+    document.getElementById("post-title").innerText = "Post not found";
+    return;
+  }
+
+  const item = data.items[0].fields;
+
+  const title = item.title;
+  const date = item.publishedDate;
+  const content = item.content;
+
+
+  /* ===============================
+     CONVERT CONTENTFUL RICH TEXT
+  ================================= */
+  const text = content.content
+    .map(block => block.content?.map(c => c.value).join("") || "")
+    .join("\n\n");
+
+
+  /* ===============================
+     INJECT INTO PAGE
+  ================================= */
+  document.getElementById("post-title").innerText = title;
+  document.getElementById("post-date").innerText =
+    new Date(date).toLocaleDateString();
+
+  document.getElementById("post-content").innerHTML =
+    text.split("\n\n").map(p => `<p>${p}</p>`).join("");
+
+
+  /* ===============================
+     DYNAMIC SEO
+  ================================= */
+  document.title = title + " | Central Service Point";
+
+  document
+    .getElementById("meta-description")
+    .setAttribute("content", text.substring(0,150));
+
+
+  /* ===============================
+     BLOG POST SCHEMA
+  ================================= */
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": title,
+    "datePublished": date,
+    "author": {
+      "@type": "Organization",
+      "name": "Central Service Point"
+    },
+    "description": text.substring(0,150),
+    "mainEntityOfPage": window.location.href
+  };
+
+  document.getElementById("blog-schema").textContent =
+    JSON.stringify(schema);
+}
+
+fetchPost();
+</script>
+
+</body>
+</html>
