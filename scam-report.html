@@ -90,52 +90,6 @@
   </form>
 </div>
 
-<script type="module">
-/import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-database.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAFojWvBMBcNjatWt7dkuScaKdQ8j8dTlk",
-  authDomain: "central-service-point.firebaseapp.com",
-  databaseURL: "https://central-service-point-76844-default-rtdb.asia-southeast1.firebasedatabase.app/",
-  projectId: "central-service-point",
-  storageBucket: "central-service-point.firebasestorage.app",
-  messagingSenderId: "507779147190",
-  appId: "1:507779147190:web:8751a9a70092cfcf474d17"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-const form = document.getElementById("scamForm");
-const messageEl = document.getElementById("message");
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  messageEl.style.color = "black";
-  messageEl.textContent = "Submitting report...";
-
-  const data = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    contractor: document.getElementById("contractor").value,
-    phone: document.getElementById("phone").value,
-    description: document.getElementById("description").value,
-    createdAt: Date.now()
-  };
-
-  push(ref(db, "scamReports"), data)
-    .then(() => {
-      messageEl.style.color = "green";
-      messageEl.textContent = "✅ Report submitted successfully!";
-      form.reset();
-    })
-    .catch((err) => {
-      messageEl.style.color = "red";
-      messageEl.textContent = "❌ Error: " + err.message;
-    });
-});
-</script>
 
 </body>
 </html>
