@@ -29,8 +29,7 @@ header nav a.cta{background:var(--primary); color:white; padding:8px 16px; borde
 
 /* Hero */
 .hero{
-    background: 
-        
+    background:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
         url('https://images.ctfassets.net/09muo917z9ra/6I61L8Xb6u29EEn8qLi4eA/97a6fb3b5eee934489389374934db37e/file_000000002334722f91ca5e0803902ae9__1_.avif');
     background-size: cover;
     background-position: center;
