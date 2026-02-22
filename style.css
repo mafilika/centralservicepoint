@@ -29,10 +29,16 @@ header nav a.cta{background:var(--primary); color:white; padding:8px 16px; borde
 
 /* Hero */
 .hero{
-    background: linear-gradient(to right, #0DA39E, #00C4B4);
+    background: 
+        linear-gradient(rgba(13,163,158,0.8), rgba(0,196,180,0.8)),
+        url('images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color:white;
     text-align:center;
     padding:120px 20px 80px;
+}
 }
 .hero h1{font-size:3rem; margin-bottom:20px;}
 .hero p{font-size:1.3rem; margin-bottom:30px;}
