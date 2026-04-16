@@ -90,5 +90,31 @@
 </footer>
 
 <script src="main.js"></script>
+
+<script>
+function getProvince() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("province");
+}
+
+const province = getProvince();
+
+// Example: auto-fill a hidden input or show it
+if (province) {
+    console.log("Selected Province:", province);
+
+    // If you have an input field:
+    const provinceInput = document.getElementById("province");
+    if (provinceInput) {
+        provinceInput.value = province;
+    }
+
+    // Optional: show it to user
+    const display = document.getElementById("selected-province");
+    if (display) {
+        display.innerText = "Province: " + province;
+    }
+}
+</script>
 </body>
   </html>
