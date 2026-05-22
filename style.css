@@ -803,4 +803,255 @@ font-size:2.5rem;
 padding:45px 30px;
 }
 
+.provinces-hero{
+min-height:70vh;
+
+background:
+linear-gradient(rgba(7,21,45,0.88),rgba(7,21,45,0.92)),
+url('https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1400&auto=format&fit=crop') center/cover;
+
+display:flex;
+align-items:center;
+text-align:center;
+padding-top:120px;
+}
+
+.provinces-hero h1{
+font-size:4.5rem;
+color:#fff;
+margin-bottom:25px;
+}
+
+.provinces-hero p{
+max-width:850px;
+margin:auto;
+color:#D7DFED;
+font-size:1.15rem;
+line-height:1.9;
+}
+
+.province-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+gap:35px;
+margin-top:60px;
+}
+
+.province-card{
+background:#fff;
+border-radius:28px;
+overflow:hidden;
+box-shadow:0 20px 50px rgba(0,0,0,0.08);
+transition:0.4s ease;
+position:relative;
+}
+
+.province-card:hover{
+transform:translateY(-10px);
+box-shadow:0 25px 60px rgba(0,166,81,0.18);
+}
+
+.province-card img{
+width:100%;
+height:250px;
+object-fit:cover;
+}
+
+.province-content{
+padding:35px;
+}
+
+.province-content h3{
+font-size:1.8rem;
+margin-bottom:18px;
+color:#07152D;
+}
+
+.province-content p{
+color:#5F6B7A;
+margin-bottom:25px;
+line-height:1.8;
+}
+
+.service-tags{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin-bottom:28px;
+}
+
+.service-tags span{
+background:#F3F6FA;
+padding:10px 16px;
+border-radius:50px;
+font-size:0.88rem;
+font-weight:600;
+color:#07152D;
+}
+
+.province-btn{
+display:inline-block;
+padding:15px 28px;
+background:linear-gradient(135deg,#00A651,#1ED760);
+color:#fff;
+font-weight:700;
+border-radius:14px;
+transition:0.3s ease;
+}
+
+.province-btn:hover{
+transform:translateY(-3px);
+}
+
+/* ===============================
+   SOLAR SECTION
+================================== */
+
+.solar-section{
+background:#07152D;
+}
+
+.solar-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:35px;
+margin-top:60px;
+}
+
+.solar-card{
+background:#10213F;
+border-radius:24px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,0.08);
+transition:0.4s ease;
+}
+
+.solar-card:hover{
+transform:translateY(-8px);
+box-shadow:0 25px 50px rgba(0,166,81,0.18);
+}
+
+.solar-card img{
+width:100%;
+height:240px;
+object-fit:cover;
+}
+
+.solar-content{
+padding:35px;
+}
+
+.solar-content h3{
+color:#fff;
+font-size:1.6rem;
+margin-bottom:15px;
+}
+
+.solar-content p{
+color:#C8D1E0;
+line-height:1.8;
+margin-bottom:25px;
+}
+
+.solar-features{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin-bottom:25px;
+}
+
+.solar-features span{
+background:rgba(255,255,255,0.06);
+padding:10px 14px;
+border-radius:50px;
+font-size:0.85rem;
+color:#DCE6F5;
+}
+
+/* ===============================
+   AC SECTION
+================================== */
+
+.ac-section{
+background:#F6F8FC;
+}
+
+.ac-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:35px;
+margin-top:60px;
+}
+
+.ac-card{
+background:#fff;
+border-radius:24px;
+overflow:hidden;
+box-shadow:0 20px 50px rgba(0,0,0,0.07);
+transition:0.4s ease;
+}
+
+.ac-card:hover{
+transform:translateY(-8px);
+}
+
+.ac-card img{
+width:100%;
+height:240px;
+object-fit:cover;
+}
+
+.ac-content{
+padding:35px;
+}
+
+.ac-content h3{
+font-size:1.6rem;
+margin-bottom:15px;
+color:#07152D;
+}
+
+.ac-content p{
+color:#667085;
+line-height:1.8;
+margin-bottom:25px;
+}
+
+/* ===============================
+   CTA
+================================== */
+
+.province-cta{
+background:
+linear-gradient(rgba(7,21,45,0.90),rgba(7,21,45,0.92)),
+url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=crop') center/cover;
+
+padding:130px 20px;
+text-align:center;
+}
+
+.province-cta h2{
+font-size:3.5rem;
+color:#fff;
+margin-bottom:25px;
+}
+
+.province-cta p{
+max-width:800px;
+margin:auto auto 40px;
+color:#D7E0EF;
+font-size:1.1rem;
+line-height:1.9;
+}
+
+@media(max-width:768px){
+
+.provinces-hero h1{
+font-size:2.7rem;
+}
+
+.province-cta h2{
+font-size:2.3rem;
+}
+
 }
