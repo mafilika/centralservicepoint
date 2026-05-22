@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Central Service Point | Under Construction</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:
+linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
+url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1400') center/cover;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+animation:fadeUp 1s ease;
+}
+
+h1{
+font-size:4rem;
+margin-bottom:20px;
+color:#00c2ff;
+}
+
+p{
+font-size:1.2rem;
+line-height:1.8;
+margin-bottom:30px;
+}
+
+.loader{
+width:70px;
+height:70px;
+border:6px solid rgba(255,255,255,.2);
+border-top:6px solid #00c2ff;
+border-radius:50%;
+margin:0 auto 30px;
+animation:spin 1s linear infinite;
+}
+
+.btn{
+display:inline-block;
+padding:15px 30px;
+background:#00c2ff;
+color:white;
+text-decoration:none;
+font-weight:bold;
+border-radius:6px;
+transition:.3s;
+}
+
+.btn:hover{
+transform:translateY(-5px);
+background:#1e90ff;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<div class="loader"></div>
+
+<h1>Website Under Construction</h1>
+
+<p>
+Central Service Point is currently building a more powerful,
+professional platform to better serve commercial and industrial clients
+across South Africa.
+</p>
+
+<p>
+Our new website will include infrastructure support solutions,
+cold room services, solar installations, air conditioning systems,
+security solutions, and more.
+</p>
+
+<a href="mailto:info@centralservicepoint.store" class="btn">
+Contact Us
+</a>
+
+</div>
+
+</body>
+  </html>
