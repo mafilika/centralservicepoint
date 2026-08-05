@@ -145,12 +145,11 @@ function initRegisterForm() {
 ); setTimeout(() => {
         window.location.href = destination;
       }, 1200);
-    } catch (err) {
-      showAlert(alertBox, mapAuthError(err));
-    } finally {
-      setLoading(submitBtn, false);
-    }
-  });
+    } } catch (err) {
+  console.error("Registration Error:", err);
+  showAlert(alertBox, `${err.code}: ${err.message}`);
+} finally {
+  setLoading(submitBtn, false);
 }
 
 /* -------------------- LOGIN -------------------- */
@@ -178,11 +177,14 @@ function initLoginForm() {
       await signInWithEmailAndPassword(auth, email, password);
       const redirect = new URLSearchParams(window.location.search).get("redirect");
       window.location.href = redirect || "index.html";
+    } 
     } catch (err) {
-      showAlert(alertBox, mapAuthError(err));
-    } finally {
-      setLoading(submitBtn, false);
-    }
+  console.error("Login Error:", err);
+  showAlert(alertBox, `${err.code}: ${err.message}`);
+} finally {
+  setLoading(submitBtn, false);
+}
+    
   });
 
   const forgotLink = document.getElementById("forgot-password-link");
