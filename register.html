@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Register | Central Service Point</title>
+<meta name="description" content="Create a free Central Service Point account as a customer or list your contracting business free for 60 days." />
+<link rel="canonical" href="https://centralservicepoint.co.za/register.html" />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="nav-logo"><span class="mark">C</span> Central Service Point</a>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="categories.html">Categories</a>
+      <a href="search-results.html">Find Contractors</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <div id="nav-auth-slot" class="flex" style="gap:12px;"></div>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="auth-shell">
+    <div class="auth-card">
+      <h1>Create your account</h1>
+      <p class="sub">Join as a customer looking for contractors, or list your business.</p>
+
+      <div class="role-toggle">
+        <button type="button" data-role="customer" class="active">I'm a customer</button>
+        <button type="button" data-role="contractor">I'm a contractor</button>
+      </div>
+
+      <div id="form-alert" class="alert" role="alert"></div>
+
+      <form id="register-form" novalidate>
+        <div class="form-group">
+          <label for="fullName">Full name</label>
+          <input type="text" id="fullName" name="fullName" autocomplete="name" required />
+        </div>
+
+        <div class="form-group" id="company-name-group" style="display:none;">
+          <label for="companyName">Business name</label>
+          <input type="text" id="companyName" name="companyName" autocomplete="organization" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" autocomplete="email" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" autocomplete="new-password" minlength="8" required />
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" minlength="8" required />
+          </div>
+        </div>
+        <p class="form-hint">Use at least 8 characters. We never see or store your password — it's handled securely by Firebase Authentication.</p>
+
+        <div class="form-group" style="display:flex;align-items:flex-start;gap:10px;margin-top:20px;">
+          <input type="checkbox" id="terms" name="terms" style="width:auto;margin-top:4px;" required />
+          <label for="terms" style="font-weight:400;font-size:0.85rem;">
+            I agree to the <a href="terms.html" style="color:var(--color-primary);">Terms of Service</a> and
+            <a href="privacy-policy.html" style="color:var(--color-primary);">Privacy Policy</a>.
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top:12px;">Create account</button>
+      </form>
+
+      <p class="auth-foot">Already have an account? <a href="login.html" id="to-login-link">Log in</a></p>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script>
+  const r = new URLSearchParams(window.location.search).get("redirect");
+  if (r) document.getElementById("to-login-link").href = `login.html?redirect=${encodeURIComponent(r)}`;
+</script>
+</body>
+</html>

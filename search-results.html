@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Search Contractors | Central Service Point</title>
+<meta name="description" content="Search and compare verified contractors across South Africa by province, city, service, rating and price." />
+<link rel="canonical" href="https://centralservicepoint.co.za/search-results.html" />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="nav-logo"><span class="mark">C</span> Central Service Point</a>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="categories.html">Categories</a>
+      <a href="search-results.html" aria-current="page">Find Contractors</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <div id="nav-auth-slot" class="flex" style="gap:12px;"></div>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="section">
+    <div class="container">
+      <div class="results-toolbar flex-between">
+        <div>
+          <h1 style="margin-bottom:4px;">Search results</h1>
+          <p id="results-count" class="text-muted">Loading…</p>
+        </div>
+        <a href="index.html" class="btn btn-outline btn-sm">New search</a>
+      </div>
+
+      <div class="results-layout">
+        <aside class="filters-panel" aria-label="Filters">
+          <div class="filter-group">
+            <h4>Rating</h4>
+            <label class="checkbox-row"><input type="checkbox" /> 4.5 &amp; up</label>
+            <label class="checkbox-row"><input type="checkbox" /> 4.0 &amp; up</label>
+            <label class="checkbox-row"><input type="checkbox" /> 3.5 &amp; up</label>
+          </div>
+          <div class="filter-group">
+            <h4>Verification</h4>
+            <label class="checkbox-row"><input type="checkbox" /> Verified only</label>
+          </div>
+          <div class="filter-group">
+            <h4>Price range</h4>
+            <label class="checkbox-row"><input type="radio" name="price" /> $ Budget-friendly</label>
+            <label class="checkbox-row"><input type="radio" name="price" /> $$ Mid-range</label>
+            <label class="checkbox-row"><input type="radio" name="price" /> $$$ Premium</label>
+          </div>
+          <div class="filter-group">
+            <h4>Availability</h4>
+            <label class="checkbox-row"><input type="checkbox" /> Available this week</label>
+          </div>
+          <p class="form-hint">Filters refine results loaded from the current search — client-side for now; server-side range filtering is on the roadmap.</p>
+        </aside>
+
+        <div>
+          <div id="results-empty" style="display:none;" class="card" style="padding:48px;text-align:center;">
+            <h3>No contractors matched your search</h3>
+            <p class="text-muted">Try widening your area or choosing a different service.</p>
+          </div>
+          <div class="grid results-grid" id="results-grid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 Central Service Point. All rights reserved.</span>
+      <span><a href="privacy-policy.html" style="color:#C6CAC8;">Privacy</a> · <a href="terms.html" style="color:#C6CAC8;">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/search.js"></script>
+</body>
+</html>

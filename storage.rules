@@ -1,0 +1,57 @@
+rules_version = '2';
+
+// =========================================================
+// CENTRAL SERVICE POINT — FIREBASE STORAGE RULES
+// Folder convention:
+//   /contractors/{uid}/logo.jpg
+//   /contractors/{uid}/cover.jpg
+//   /contractors/{uid}/gallery/{fileName}
+//   /contractors/{uid}/documents/{fileName}   (certificates, licences — private)
+// =========================================================
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    match /contractors/{uid}/logo.jpg {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == uid
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    match /contractors/{uid}/cover.jpg {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == uid
+        && request.resource.size < 8 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    match /contractors/{uid}/gallery/{fileName} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == uid
+        && request.resource.size < 8 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // Compliance documents (certificates, licences, insurance) — private,
+    // readable only by the owning contractor and admins (admin reads happen
+    // via the Admin SDK, which bypasses these rules).
+    match /contractors/{uid}/documents/{fileName} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if request.auth != null && request.auth.uid == uid
+        && request.resource.size < 15 * 1024 * 1024
+        && request.resource.contentType.matches('application/pdf|image/.*');
+    }
+
+    match /reviews/{reviewId}/{fileName} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

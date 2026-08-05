@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Log In | Central Service Point</title>
+<meta name="description" content="Log in to your Central Service Point account to manage quotes, favourites, or your contractor listing." />
+<link rel="canonical" href="https://centralservicepoint.co.za/login.html" />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="nav-logo"><span class="mark">C</span> Central Service Point</a>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="categories.html">Categories</a>
+      <a href="search-results.html">Find Contractors</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <div id="nav-auth-slot" class="flex" style="gap:12px;"></div>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="auth-shell">
+    <div class="auth-card">
+      <h1>Welcome back</h1>
+      <p class="sub">Log in to manage your quotes, favourites or business listing.</p>
+
+      <div id="form-alert" class="alert" role="alert"></div>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" autocomplete="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required />
+        </div>
+        <div class="flex-between" style="margin-bottom:20px;">
+          <a href="#" id="forgot-password-link" style="font-size:0.85rem;color:var(--color-primary);font-weight:600;">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+      </form>
+
+      <p class="auth-foot">Don't have an account? <a href="register.html" id="to-register-link">Register free</a></p>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script>
+  const r = new URLSearchParams(window.location.search).get("redirect");
+  if (r) document.getElementById("to-register-link").href = `register.html?redirect=${encodeURIComponent(r)}`;
+</script>
+</body>
+</html>

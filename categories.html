@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contractor Categories | Central Service Point</title>
+<meta name="description" content="Browse all contractor categories on Central Service Point — construction, electrical, plumbing, roofing, solar, security and more." />
+<link rel="canonical" href="https://centralservicepoint.co.za/categories.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://centralservicepoint.co.za/" },
+    { "@type": "ListItem", "position": 2, "name": "Categories", "item": "https://centralservicepoint.co.za/categories.html" }
+  ]
+}
+</script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="nav-logo"><span class="mark">C</span> Central Service Point</a>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="categories.html" aria-current="page">Categories</a>
+      <a href="search-results.html">Find Contractors</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <div id="nav-auth-slot" class="flex" style="gap:12px;"></div>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="section-tight" style="background:#fff;border-bottom:1px solid var(--color-border);">
+    <div class="container">
+      <h1 style="margin-bottom:8px;">All categories</h1>
+      <p class="text-muted">Find the right professional for every job, anywhere in South Africa.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid category-grid" id="category-grid">
+        <!-- Category cards rendered statically; count populated by Firestore aggregation in a future pass -->
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 Central Service Point. All rights reserved.</span>
+      <span><a href="privacy-policy.html" style="color:#C6CAC8;">Privacy</a> · <a href="terms.html" style="color:#C6CAC8;">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+<script>
+  const CATEGORIES = [
+    ["Construction","🏗️"], ["Electrical","⚡"], ["Plumbing","🔧"], ["Roofing","🏠"],
+    ["Painting","🎨"], ["Waterproofing","💧"], ["Solar","☀️"], ["Security","🛡️"],
+    ["CCTV","📹"], ["Air Conditioning","❄️"], ["Cold Rooms","🧊"], ["Swimming Pools","🏊"],
+    ["Renovations","🛠️"], ["Cleaning","🧹"], ["Landscaping","🌿"], ["Paving","🧱"],
+    ["Carpentry","🪚"], ["Civil Engineering","📐"], ["Architecture","📏"],
+    ["Quantity Surveying","📊"], ["Property Maintenance","🔩"], ["Home Automation","🏡"],
+    ["Fire Protection","🧯"]
+  ];
+  const grid = document.getElementById("category-grid");
+  grid.innerHTML = CATEGORIES.map(([name, icon]) => `
+    <a class="card category-card" href="search-results.html?service=${encodeURIComponent(name)}">
+      <div class="icon">${icon}</div>
+      <h3>${name}</h3>
+      <p class="count">View contractors</p>
+    </a>
+  `).join("");
+</script>
+</body>
+</html>

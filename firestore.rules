@@ -1,0 +1,150 @@
+rules_version = '2';
+
+// =========================================================
+// CENTRAL SERVICE POINT — FIRESTORE SECURITY RULES
+// =========================================================
+// Principles:
+//  - Public read access to approved/public contractor & content data.
+//  - Writes require authentication; sensitive writes require ownership
+//    or an admin custom claim (set via Cloud Function, never client-side).
+//  - No client can ever set approvalStatus, verified, subscriptionPlan,
+//    or role fields directly — those are admin/Cloud-Function only.
+//  - Payment documents are server-written only (via webhook Cloud
+//    Function); clients can read their own, never write.
+// =========================================================
+
+function isSignedIn() {
+  return request.auth != null;
+}
+
+function isOwner(uid) {
+  return isSignedIn() && request.auth.uid == uid;
+}
+
+function isAdmin() {
+  return isSignedIn() && request.auth.token.admin == true;
+}
+
+function unchanged(field) {
+  return !(field in request.resource.data) ||
+    request.resource.data[field] == resource.data[field];
+}
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------------- USERS ----------------
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId)
+        && request.resource.data.role in ["customer", "contractor"];
+      // Users may update their own profile fields but never their role or status.
+      allow update: if (isOwner(userId) && unchanged('role') && unchanged('status'))
+        || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ---------------- CONTRACTORS ----------------
+    match /contractors/{contractorId} {
+      // Public can read only approved listings; owner/admin can read their own regardless of status.
+      allow read: if resource.data.approvalStatus == 'approved'
+        || (isSignedIn() && request.auth.uid == resource.data.ownerUid)
+        || isAdmin();
+
+      allow create: if isOwner(request.resource.data.ownerUid)
+        && request.resource.data.approvalStatus == 'pending'
+        && request.resource.data.verified == false;
+
+      // Owner can edit their own listing content, but never approval/verification/plan fields.
+      allow update: if (isOwner(resource.data.ownerUid)
+          && unchanged('approvalStatus')
+          && unchanged('verified')
+          && unchanged('subscriptionPlan')
+          && unchanged('ownerUid'))
+        || isAdmin();
+
+      allow delete: if isAdmin();
+
+      // ---- Portfolio subcollection ----
+      match /portfolio/{itemId} {
+        allow read: if true;
+        allow write: if isSignedIn() && get(/databases/$(database)/documents/contractors/$(contractorId)).data.ownerUid == request.auth.uid;
+      }
+    }
+
+    // ---------------- CATEGORIES / CITIES / PROVINCES (admin-managed reference data) ----------------
+    match /categories/{id} { allow read: if true; allow write: if isAdmin(); }
+    match /cities/{id}     { allow read: if true; allow write: if isAdmin(); }
+    match /provinces/{id}  { allow read: if true; allow write: if isAdmin(); }
+
+    // ---------------- REVIEWS ----------------
+    match /reviews/{reviewId} {
+      allow read: if resource.data.status == 'approved' || isAdmin();
+      // Only a signed-in customer who owns a completed quote for this contractor may create a review.
+      // Enforced via Cloud Function trigger (onCreate) that validates the linked quote before flipping status to 'approved'.
+      allow create: if isSignedIn()
+        && request.resource.data.customerUid == request.auth.uid
+        && request.resource.data.status == 'pending';
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ---------------- QUOTES / LEADS ----------------
+    match /quotes/{quoteId} {
+      allow read: if isSignedIn() &&
+        (request.auth.uid == resource.data.customerUid || request.auth.uid == resource.data.contractorUid || isAdmin());
+      allow create: if isSignedIn() && request.resource.data.customerUid == request.auth.uid;
+      allow update: if isSignedIn() &&
+        (request.auth.uid == resource.data.customerUid || request.auth.uid == resource.data.contractorUid || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    // ---------------- MESSAGES (per-quote thread) ----------------
+    match /messages/{messageId} {
+      allow read, create: if isSignedIn() &&
+        (request.auth.uid == request.resource.data.senderUid ||
+         request.auth.uid == resource.data.senderUid ||
+         request.auth.uid == resource.data.recipientUid);
+      allow update, delete: if false;
+    }
+
+    // ---------------- SUBSCRIPTIONS & PAYMENTS (server/admin only) ----------------
+    // Card data is NEVER stored here — only status, plan, transaction/reference IDs.
+    match /subscriptions/{subId} {
+      allow read: if isSignedIn() && (request.auth.uid == resource.data.contractorUid || isAdmin());
+      allow write: if isAdmin(); // real writes come from a trusted Cloud Function using the Admin SDK
+    }
+    match /payments/{paymentId} {
+      allow read: if isSignedIn() && (request.auth.uid == resource.data.contractorUid || isAdmin());
+      allow write: if isAdmin(); // populated by the payment gateway's webhook via Cloud Function
+    }
+
+    // ---------------- NOTIFICATIONS ----------------
+    match /notifications/{notifId} {
+      allow read: if isSignedIn() && request.auth.uid == resource.data.recipientUid;
+      allow write: if isAdmin();
+    }
+
+    // ---------------- FAVOURITES ----------------
+    match /favourites/{favId} {
+      allow read, write: if isSignedIn() && request.resource.data.customerUid == request.auth.uid;
+    }
+
+    // ---------------- BLOG ----------------
+    match /blogs/{postId} {
+      allow read: if resource.data.published == true || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // ---------------- ANALYTICS (write via Cloud Function only) ----------------
+    match /analytics/{docId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    // Default deny for anything not explicitly matched above.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
