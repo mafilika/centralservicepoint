@@ -19,14 +19,17 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "central-service-point.firebaseapp.com",
-  projectId: "central-service-point",
-  storageBucket: "central-service-point.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCe_PfRWJuCxv1qfHKlkaP-iitv8YS0-wA",
+    authDomain: "central-service-point-b47e9.firebaseapp.com",
+    projectId: "central-service-point-b47e9",
+    storageBucket: "central-service-point-b47e9.firebasestorage.app",
+    messagingSenderId: "969337472448",
+    appId: "1:969337472448:web:ef0291892c1c171ed03425",
+    measurementId: "G-MS9GMS65CF"
+  };
+
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
