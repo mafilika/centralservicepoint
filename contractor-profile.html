@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="page-title">Contractor Profile | Central Service Point</title>
+<meta name="description" id="page-description" content="View verified reviews, ratings, gallery and contact details for this contractor on Central Service Point." />
+<link rel="canonical" id="page-canonical" href="https://centralservicepoint.co.za/contractor-profile.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+<script type="application/ld+json" id="ld-localbusiness"></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="nav-logo"><span class="mark">C</span> Central Service Point</a>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="categories.html">Categories</a>
+      <a href="search-results.html">Find Contractors</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <div id="nav-auth-slot" class="flex" style="gap:12px;"></div>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- Loading state -->
+  <div id="profile-loading" class="container section text-center">
+    <p class="text-muted">Loading contractor profile…</p>
+  </div>
+
+  <!-- Not found state -->
+  <div id="profile-not-found" class="container section text-center" style="display:none;">
+    <h1>Contractor not found</h1>
+    <p class="text-muted">This listing may have been removed or is no longer active.</p>
+    <a href="search-results.html" class="btn btn-primary">Back to search</a>
+  </div>
+
+  <!-- Loaded profile -->
+  <div id="profile-content" style="display:none;">
+    <div class="profile-cover" id="profile-cover"></div>
+
+    <div class="profile-header">
+      <div class="container">
+        <div class="profile-header-inner">
+          <div class="profile-logo" id="profile-logo">?</div>
+          <div style="flex:1;">
+            <div class="profile-title-row">
+              <h1 id="profile-name"></h1>
+              <span class="badge-verified" id="profile-verified-badge" style="display:none;">✓ Verified</span>
+            </div>
+            <div class="profile-meta">
+              <span class="rating"><span class="stars">★★★★★</span> <span id="profile-rating"></span> <span id="profile-review-count" class="text-muted"></span></span>
+              <span id="profile-location"></span>
+              <span id="profile-years"></span>
+            </div>
+          </div>
+          <div class="profile-actions">
+            <a href="#" id="profile-call-btn" class="btn btn-outline">📞 Call now</a>
+            <a href="#" id="profile-whatsapp-btn" class="btn btn-outline" target="_blank" rel="noopener">WhatsApp</a>
+            <a href="#" id="profile-quote-btn" class="btn btn-primary">Request Quote</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container section">
+      <div class="profile-layout">
+        <div>
+          <div class="stat-row">
+            <div class="stat-box"><div class="value" id="stat-projects">–</div><div class="label">Completed projects</div></div>
+            <div class="stat-box"><div class="value" id="stat-response">–</div><div class="label">Avg. response time</div></div>
+            <div class="stat-box"><div class="value" id="stat-years">–</div><div class="label">Years in business</div></div>
+            <div class="stat-box"><div class="value" id="stat-rating">–</div><div class="label">Overall rating</div></div>
+          </div>
+
+          <div class="profile-tabs" role="tablist">
+            <button class="profile-tab active" data-tab="overview" role="tab">Overview</button>
+            <button class="profile-tab" data-tab="gallery" role="tab">Gallery</button>
+            <button class="profile-tab" data-tab="reviews" role="tab">Reviews</button>
+            <button class="profile-tab" data-tab="compliance" role="tab">Compliance</button>
+          </div>
+
+          <section class="profile-panel active" id="panel-overview">
+            <h3>About this business</h3>
+            <p id="profile-description" class="text-muted"></p>
+
+            <h3 style="margin-top:32px;">Services</h3>
+            <div class="tags" id="profile-services"></div>
+
+            <h3 style="margin-top:32px;">Service areas</h3>
+            <div class="tags" id="profile-areas"></div>
+
+            <h3 style="margin-top:32px;">Business details</h3>
+            <div class="info-list">
+              <div class="row"><span>Languages spoken</span><span id="profile-languages">—</span></div>
+              <div class="row"><span>Response time</span><span id="profile-response-detail">—</span></div>
+              <div class="row"><span>Completed projects</span><span id="profile-projects-detail">—</span></div>
+            </div>
+          </section>
+
+          <section class="profile-panel" id="panel-gallery">
+            <h3>Project gallery</h3>
+            <div class="grid gallery-grid" id="gallery-grid">
+              <p class="text-muted">No gallery photos yet.</p>
+            </div>
+          </section>
+
+          <section class="profile-panel" id="panel-reviews">
+            <h3>Customer reviews</h3>
+            <div id="reviews-list">
+              <p class="text-muted">Loading reviews…</p>
+            </div>
+          </section>
+
+          <section class="profile-panel" id="panel-compliance">
+            <h3>Certifications &amp; compliance</h3>
+            <p class="text-muted" style="margin-bottom:20px;">Documents are verified by our team before a contractor receives a verification badge.</p>
+            <div class="info-list" id="compliance-list">
+              <div class="row"><span>Verification status</span><span id="compliance-status">—</span></div>
+            </div>
+          </section>
+        </div>
+
+        <aside>
+          <div class="sidebar-card">
+            <h4>Contact</h4>
+            <div class="contact-row">📞 <span id="side-phone">—</span></div>
+            <div class="contact-row">✉️ <span id="side-email">—</span></div>
+            <div class="contact-row">🌐 <span id="side-website">—</span></div>
+            <a href="#" id="side-quote-btn" class="btn btn-primary btn-block" style="margin-top:12px;">Request a Quote</a>
+          </div>
+
+          <div class="sidebar-card">
+            <h4>Business hours</h4>
+            <div id="hours-list">
+              <p class="text-muted" style="font-size:0.85rem;">Hours not provided.</p>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h4>Location</h4>
+            <iframe class="map-embed" id="map-embed" title="Business location map" loading="lazy" src=""></iframe>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 Central Service Point. All rights reserved.</span>
+      <span><a href="privacy-policy.html" style="color:#C6CAC8;">Privacy</a> · <a href="terms.html" style="color:#C6CAC8;">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/contractor-profile.js"></script>
+</body>
+</html>
