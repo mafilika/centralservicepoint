@@ -1,0 +1,19 @@
+{
+  "name": "central-service-point-functions",
+  "description": "Server-side logic for Central Service Point: WhatsApp quote notifications, trial/payment automation.",
+  "engines": { "node": "20" },
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.3.0",
+    "firebase-functions": "^5.0.1",
+    "twilio": "^5.2.2"
+  },
+  "private": true
+}
