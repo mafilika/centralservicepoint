@@ -138,8 +138,11 @@ function initRegisterForm() {
 
       showAlert(alertBox, "Account created! Check your email to verify your address.", "success");
       const redirect = new URLSearchParams(window.location.search).get("redirect");
-      const destination = redirect || (selectedRole === "contractor" ? "dashboard-contractor.html" : "dashboard-customer.html");
-      setTimeout(() => {
+      const destination = redirect || (
+    selectedRole === "contractor"
+        ? "contractor-profile.html?setup=true"
+        : "dashboard-customer.html"
+); setTimeout(() => {
         window.location.href = destination;
       }, 1200);
     } catch (err) {
