@@ -1,9 +1,3 @@
-// =========================================================
-// CENTRAL SERVICE POINT — AUTHENTICATION
-// Handles register + login for both Customers and Contractors.
-// Passwords are never handled directly by our code beyond
-// passing them to Firebase Auth over HTTPS; we never store them.
-// =========================================================
 
 import { auth, db } from "./firebase-config.js";
 import {
