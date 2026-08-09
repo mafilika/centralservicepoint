@@ -1,18 +1,5 @@
 rules_version = '2';
 
-// =========================================================
-// CENTRAL SERVICE POINT — FIRESTORE SECURITY RULES
-// =========================================================
-// Principles:
-//  - Public read access to approved/public contractor & content data.
-//  - Writes require authentication; sensitive writes require ownership
-//    or an admin custom claim (set via Cloud Function, never client-side).
-//  - No client can ever set approvalStatus, verified, subscriptionPlan,
-//    or role fields directly — those are admin/Cloud-Function only.
-//  - Payment documents are server-written only (via webhook Cloud
-//    Function); clients can read their own, never write.
-// =========================================================
-
 function isSignedIn() {
   return request.auth != null;
 }
