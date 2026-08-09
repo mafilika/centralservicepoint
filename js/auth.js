@@ -406,13 +406,13 @@ function initRegisterForm() {
         ).get("redirect");
 
 
-      const destination =
-        redirect ||
-        (
-          selectedRole === "contractor"
-            ? "contractor-profile.html?setup=true"
+    const destination =
+    redirect ||
+    (
+        selectedRole === "contractor"
+            ? "contractor-onboarding.html"
             : "dashboard-customer.html"
-        );
+    );
 
 
       setTimeout(() => {
