@@ -1,0 +1,30 @@
+.dash-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.75rem; }
+.dash-tabs { display: inline-flex; gap: 2px; background: var(--csp-bg); padding: 4px; border-radius: 12px; margin-bottom: 1.75rem; overflow-x: auto; max-width: 100%; }
+.dash-tabs button { display: flex; align-items: center; gap: 0.4rem; padding: 0.55rem 1rem; border-radius: 9px; font-size: 0.83rem; font-weight: 700; color: var(--csp-muted); white-space: nowrap; }
+.dash-tabs button.active { background: #fff; color: var(--csp-primary); box-shadow: var(--csp-shadow-sm); }
+
+.stat-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 1.75rem; }
+.stat-card { padding: 1.2rem; }
+.stat-card__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+.stat-card__icon { width: 34px; height: 34px; border-radius: 10px; background: var(--csp-bg); display: flex; align-items: center; justify-content: center; color: var(--csp-primary); }
+.stat-card__value { font-family: var(--csp-font-mono); font-size: 1.5rem; font-weight: 800; }
+.stat-card__label { font-size: 0.78rem; color: var(--csp-muted); margin-top: 2px; }
+
+.dash-panel { display: none; }
+.dash-panel.active { display: block; }
+
+.status-pending-banner { background: var(--csp-gold-soft); color: #6b5017; padding: 0.9rem 1.1rem; border-radius: 12px; font-size: 0.85rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem; }
+.status-suspended-banner { background: #FBEAE9; color: var(--csp-danger); padding: 0.9rem 1.1rem; border-radius: 12px; font-size: 0.85rem; margin-bottom: 1.5rem; }
+
+.lead-row { display: flex; align-items: center; justify-content: space-between; padding: 1rem; gap: 1rem; flex-wrap: wrap; }
+.lead-row + .lead-row { border-top: 1px solid var(--csp-border); }
+.lead-status { font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+.lead-status--new { background: var(--csp-gold-soft); color: var(--csp-gold); }
+.lead-status--responded { background: #E4F3EB; color: var(--csp-success); }
+.lead-status--closed { background: var(--csp-bg); color: var(--csp-muted); }
+
+.tier-card { border-radius: 16px; padding: 1.3rem; display: flex; flex-direction: column; }
+.tier-card.current { border: 2px solid var(--csp-primary); }
+
+.gallery-manage { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.6rem; }
+.gallery-manage img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; }
