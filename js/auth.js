@@ -410,8 +410,8 @@ function initRegisterForm() {
     redirect ||
     (
         selectedRole === "contractor"
-            ? "public/onboarding.html"
-            : "public/dashboard.html"
+            ? "onboarding.html"
+            : "dashboard.html"
     );
 
 
